@@ -33,10 +33,13 @@ class ConfigContainer
      * @return mixed
      * @throws \Xervice\Config\Exception\ConfigNotFound
      */
-    public function get(string $name)
+    public function get(string $name, string $default = null)
     {
         if (!isset($this->configs[$name])) {
-            throw new ConfigNotFound($name);
+            if ($default === null) {
+                throw new ConfigNotFound($name);
+            }
+            $this->set($name, $default);
         }
         return $this->configs[$name];
     }

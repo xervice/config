@@ -50,7 +50,8 @@ class XerviceConfig
     public function getConfig()
     {
         $environment = $this->factory->createEnvironment();
-        $configDir = realpath(getcwd() . '/config/');
+        $rootPath = getenv('APPLICATION_PATH') ?: getcwd();
+        $configDir = realpath($rootPath . '/config/');
 
         $this->parseFileIfExist($configDir . '/config_default.php');
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');

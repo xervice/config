@@ -1,0 +1,20 @@
+{
+  "name"             : "xervice/config",
+  "description"      : "Config environment to xervice components",
+  "license"          : "MIT",
+  "authors"          : [
+    {
+      "name" : "Mike Bertram",
+      "email": "contact@mibexx.de"
+    }
+  ],
+  "require-dev": {
+    "codeception/codeception": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xervice\\": "src/",
+      "XerviceTest\\": "tests/Xervice"
+    }
+  }
+}

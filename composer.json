@@ -9,7 +9,8 @@
     }
   ],
   "require-dev": {
-    "codeception/codeception": "*"
+    "codeception/codeception": "*",
+    "symfony/var-dumper": "*"
   },
   "autoload": {
     "psr-4": {

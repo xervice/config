@@ -4,7 +4,8 @@
 namespace Xervice\Config\Container;
 
 
-use Config\Exception\ConfigNotFound;
+
+use Xervice\Config\Exception\ConfigNotFound;
 
 class ConfigContainer
 {
@@ -30,7 +31,7 @@ class ConfigContainer
      * @param string $name
      *
      * @return mixed
-     * @throws \Config\Exception\ConfigNotFound
+     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     public function get(string $name)
     {

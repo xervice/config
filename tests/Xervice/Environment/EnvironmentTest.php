@@ -40,5 +40,7 @@ class EnvironmentTest extends \Codeception\Test\Unit
             'test',
             $env->getEnvironment()
         );
+
+        putenv('APPLICATION_ENV=');
     }
 }

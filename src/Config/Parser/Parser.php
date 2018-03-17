@@ -5,6 +5,7 @@ namespace Xervice\Config\Parser;
 
 
 use Xervice\Config\Container\ConfigContainer;
+use Xervice\Config\Exception\FileNotFound;
 
 class Parser
 {
@@ -25,13 +26,17 @@ class Parser
 
     /**
      * @param string $file
+     *
+     * @throws \Xervice\Config\Exception\FileNotFound
      */
     public function parseFile(string $file)
     {
         $config = [];
-        if (file_exists($file)) {
-            require $file;
+        if (!file_exists($file)) {
+            throw new FileNotFound($file);
         }
+
+        require $file;
         foreach ($config as $key => $value) {
             $this->configContainer->set($key, $value);
         }

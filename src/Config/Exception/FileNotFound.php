@@ -6,10 +6,10 @@ namespace Xervice\Config\Exception;
 
 use Throwable;
 
-class ConfigNotFound extends \Exception
+class FileNotFound extends \Exception
 {
     /**
-     * ConfigNotFound constructor.
+     * FileNotFound constructor.
      *
      * @param string $message
      * @param int $code
@@ -17,7 +17,7 @@ class ConfigNotFound extends \Exception
      */
     public function __construct(string $message = "", int $code = 0, \Throwable $previous = null)
     {
-        $message = 'Config not found for key ' . $message;
+        $message = 'Config file not found ' . $message;
 
         parent::__construct($message, $code, $previous);
     }

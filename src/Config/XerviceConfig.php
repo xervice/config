@@ -17,6 +17,11 @@ class XerviceConfig
     private $factory;
 
     /**
+     * @var \Xervice\Config\Parser\Parser
+     */
+    private $parser;
+
+    /**
      * XerviceConfig constructor.
      *
      * @param \Xervice\Config\XerviceConfigFactory $factory
@@ -24,6 +29,7 @@ class XerviceConfig
     public function __construct(\Xervice\Config\XerviceConfigFactory $factory)
     {
         $this->factory = $factory;
+        $this->parser = $this->factory->createParser();
     }
 
     /**
@@ -39,20 +45,32 @@ class XerviceConfig
 
     /**
      * @return \Xervice\Config\Container\ConfigContainer
+     * @throws \Xervice\Config\Exception\FileNotFound
      */
     public function getConfig()
     {
-        $parser = $this->factory->createParser();
         $environment = $this->factory->createEnvironment();
-
         $configDir = realpath(getcwd() . '/config/');
 
-        $parser->parseFile($configDir . '/config_default.php');
-        $parser->parseFile($configDir . '/config_' . $environment->getEnvironment() . '.php');
-        $parser->parseFile($configDir . '/config_local.php');
+        $this->parseFileIfExist($configDir . '/config_default.php');
+        $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
+        $this->parseFileIfExist($configDir . '/config_local.php');
 
         return $this->factory->getConfigContainer();
     }
+
+    /**
+     * @param string $file
+     *
+     * @throws \Xervice\Config\Exception\FileNotFound
+     */
+    private function parseFileIfExist(string $file)
+    {
+        if (file_exists($file)) {
+            $this->parser->parseFile($file);
+        }
+    }
+
 
 
 }

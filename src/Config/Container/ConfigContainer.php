@@ -16,7 +16,7 @@ class ConfigContainer
 
     /**
      * @param string $name
-     * @param $val
+     * @param mixed $val
      *
      * @return \Xervice\Config\Container\ConfigContainer
      */
@@ -29,11 +29,12 @@ class ConfigContainer
 
     /**
      * @param string $name
+     * @param mixed $default
      *
      * @return mixed
      * @throws \Xervice\Config\Exception\ConfigNotFound
      */
-    public function get(string $name, string $default = null)
+    public function get(string $name, $default = null)
     {
         if (!isset($this->configs[$name])) {
             if ($default === null) {

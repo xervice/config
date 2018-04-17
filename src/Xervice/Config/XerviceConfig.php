@@ -4,6 +4,8 @@
 namespace Xervice\Config;
 
 
+use Xervice\Config\XerviceConfigFactory;
+
 class XerviceConfig
 {
     /**
@@ -26,10 +28,11 @@ class XerviceConfig
      *
      * @param \Xervice\Config\XerviceConfigFactory $factory
      */
-    public function __construct(\Xervice\Config\XerviceConfigFactory $factory)
+    public function __construct(XerviceConfigFactory $factory)
     {
         $this->factory = $factory;
         $this->parser = $this->factory->createParser();
+        $this->init();
     }
 
     /**
@@ -49,14 +52,6 @@ class XerviceConfig
      */
     public function getConfig()
     {
-        $environment = $this->factory->createEnvironment();
-        $rootPath = getenv('APPLICATION_PATH') ?: getcwd();
-        $configDir = $rootPath . '/config/';
-
-        $this->parseFileIfExist($configDir . '/config_default.php');
-        $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
-        $this->parseFileIfExist($configDir . '/config_local.php');
-
         return $this->factory->getConfigContainer();
     }
 
@@ -72,6 +67,18 @@ class XerviceConfig
         }
     }
 
+    private function init(): void
+    {
+        $environment = $this->factory->createEnvironment();
+        $rootPath = getenv('APPLICATION_PATH') ?: getcwd();
+        $configDir = $rootPath . '/config/';
+
+        $this->parseFileIfExist($configDir . '/config_default.php');
+        $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
+        $this->parseFileIfExist($configDir . '/config_local.php');
+
+        $this->factory->getConfigContainer()->set('APPLICATION_PATH', $rootPath);
+    }
 
 
 }

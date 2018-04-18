@@ -37,8 +37,6 @@ class Parser
         }
 
         require $file;
-        foreach ($config as $key => $value) {
-            $this->configContainer->set($key, $value);
-        }
+        $this->configContainer->fromArray($config);
     }
 }

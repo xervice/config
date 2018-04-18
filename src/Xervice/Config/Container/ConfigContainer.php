@@ -12,7 +12,7 @@ class ConfigContainer
     /**
      * @var array
      */
-    private $configs;
+    private $configs = [];
 
     /**
      * @param string $name
@@ -25,6 +25,14 @@ class ConfigContainer
         $this->configs[$name] = $val;
 
         return $this;
+    }
+
+    /**
+     * @param array $config
+     */
+    public function fromArray(array $config)
+    {
+        $this->configs = array_merge($this->configs, $config);
     }
 
     /**

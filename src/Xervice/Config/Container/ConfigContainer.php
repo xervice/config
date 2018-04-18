@@ -28,6 +28,14 @@ class ConfigContainer
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->configs;
+    }
+
+    /**
      * @param string $name
      * @param mixed $default
      *

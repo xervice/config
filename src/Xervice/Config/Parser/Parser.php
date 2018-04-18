@@ -31,7 +31,7 @@ class Parser
      */
     public function parseFile(string $file)
     {
-        $config = [];
+        $config = $this->configContainer->toArray();
         if (!file_exists($file)) {
             throw new FileNotFound($file);
         }

@@ -77,6 +77,13 @@ class XerviceConfig
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
         $this->parseFileIfExist($configDir . '/config_local.php');
 
+        $additionalFiles = $this->getConfig()->get('CONFIG_FILES', []);
+        if ($additionalFiles) {
+            foreach ($additionalFiles as $file) {
+                $this->parseFileIfExist($file);
+            }
+        }
+
         $this->factory->getConfigContainer()->set('APPLICATION_PATH', $rootPath);
     }
 

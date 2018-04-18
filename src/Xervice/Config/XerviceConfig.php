@@ -8,6 +8,10 @@ use Xervice\Config\XerviceConfigFactory;
 
 class XerviceConfig
 {
+    const APPLICATION_PATH = 'APPLICATION_PATH';
+
+    const ADDITIONAL_CONFIG_FILES = 'ADDITIONAL_CONFIG_FILES';
+
     /**
      * @var \Xervice\Config\XerviceConfig
      */
@@ -77,14 +81,14 @@ class XerviceConfig
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
         $this->parseFileIfExist($configDir . '/config_local.php');
 
-        $additionalFiles = $this->getConfig()->get('CONFIG_FILES', []);
+        $additionalFiles = $this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
         if ($additionalFiles) {
             foreach ($additionalFiles as $file) {
                 $this->parseFileIfExist($file);
             }
         }
 
-        $this->factory->getConfigContainer()->set('APPLICATION_PATH', $rootPath);
+        $this->factory->getConfigContainer()->set(self::APPLICATION_PATH, $rootPath);
     }
 
 

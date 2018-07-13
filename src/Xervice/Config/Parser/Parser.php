@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 
 
 namespace Xervice\Config\Parser;
 
 
 use Xervice\Config\Container\ConfigContainer;
-use Xervice\Config\Exception\FileNotFound;
 
 class Parser
 {
@@ -26,17 +26,13 @@ class Parser
 
     /**
      * @param string $file
-     *
-     * @throws \Xervice\Config\Exception\FileNotFound
      */
-    public function parseFile(string $file)
+    public function parseFile(string $file): void
     {
         $config = $this->configContainer->toArray();
-        if (!file_exists($file)) {
-            throw new FileNotFound($file);
+        if (file_exists($file)) {
+            require $file;
+            $this->configContainer->fromArray($config);
         }
-
-        require $file;
-        $this->configContainer->fromArray($config);
     }
 }

@@ -1,21 +1,22 @@
 <?php
+declare(strict_types=1);
 
 
 namespace Xervice\Config;
 
 
-use Xervice\Config\XerviceConfigFactory;
+use Xervice\Config\Container\ConfigContainer;
 
 class XerviceConfig
 {
-    const APPLICATION_PATH = 'APPLICATION_PATH';
+    public const APPLICATION_PATH = 'APPLICATION_PATH';
 
-    const ADDITIONAL_CONFIG_FILES = 'ADDITIONAL_CONFIG_FILES';
+    public const ADDITIONAL_CONFIG_FILES = 'ADDITIONAL_CONFIG_FILES';
 
     /**
      * @var \Xervice\Config\XerviceConfig
      */
-    static $instance;
+    private static $instance;
 
     /**
      * @var \Xervice\Config\XerviceConfigFactory
@@ -42,7 +43,7 @@ class XerviceConfig
     /**
      * @return \Xervice\Config\XerviceConfig
      */
-    public static function getInstance()
+    public static function getInstance(): XerviceConfig
     {
         if (self::$instance === null) {
             self::$instance = new self(new XerviceConfigFactory());
@@ -52,23 +53,18 @@ class XerviceConfig
 
     /**
      * @return \Xervice\Config\Container\ConfigContainer
-     * @throws \Xervice\Config\Exception\FileNotFound
      */
-    public function getConfig()
+    public function getConfig(): ConfigContainer
     {
         return $this->factory->getConfigContainer();
     }
 
     /**
      * @param string $file
-     *
-     * @throws \Xervice\Config\Exception\FileNotFound
      */
-    private function parseFileIfExist(string $file)
+    private function parseFileIfExist(string $file): void
     {
-        if (file_exists($file)) {
-            $this->parser->parseFile($file);
-        }
+        $this->parser->parseFile($file);
     }
 
     private function init(): void
@@ -81,7 +77,7 @@ class XerviceConfig
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
         $this->parseFileIfExist($configDir . '/config_local.php');
 
-        $additionalFiles = $this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
+        $additionalFiles = (array) $this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
         if ($additionalFiles) {
             foreach ($additionalFiles as $file) {
                 $this->parseFileIfExist($file);
@@ -90,6 +86,4 @@ class XerviceConfig
 
         $this->factory->getConfigContainer()->set(self::APPLICATION_PATH, $rootPath);
     }
-
-
 }

@@ -40,18 +40,4 @@ class ConfigContainerTest extends \Codeception\Test\Unit
             $configContainer->get('notexist', 'testtest')
         );
     }
-
-    /**
-     * @group Xervice
-     * @group Config
-     * @group ConfigContainer
-     * @group Integration
-     *
-     * @expectedException \Xervice\Config\Exception\ConfigNotFound
-     */
-    public function testGetWithNotExists()
-    {
-        $configContainer = new ConfigContainer();
-        $configContainer->get('notexist');
-    }
 }

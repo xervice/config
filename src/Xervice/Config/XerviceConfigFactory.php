@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace Xervice\Config;
@@ -18,7 +19,7 @@ class XerviceConfigFactory
     /**
      * @return \Xervice\Config\Container\ConfigContainer
      */
-    public function getConfigContainer()
+    public function getConfigContainer(): ConfigContainer
     {
         if ($this->configContainer === null) {
             $this->configContainer = new ConfigContainer();
@@ -29,7 +30,7 @@ class XerviceConfigFactory
     /**
      * @return \Xervice\Config\Parser\Parser
      */
-    public function createParser()
+    public function createParser(): Parser
     {
         return new Parser(
             $this->getConfigContainer()
@@ -39,7 +40,7 @@ class XerviceConfigFactory
     /**
      * @return \Xervice\Config\Environment\Environment
      */
-    public function createEnvironment()
+    public function createEnvironment(): Environment
     {
         return new Environment();
     }

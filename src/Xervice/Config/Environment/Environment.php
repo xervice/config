@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 
 namespace Xervice\Config\Environment;
@@ -6,7 +7,7 @@ namespace Xervice\Config\Environment;
 
 class Environment
 {
-    const ENV_ENVIRONMENT = 'APPLICATION_ENV';
+    public const ENV_ENVIRONMENT = 'APPLICATION_ENV';
 
     /**
      * @return string

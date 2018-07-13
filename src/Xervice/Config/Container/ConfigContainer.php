@@ -1,11 +1,9 @@
 <?php
+declare(strict_types=1);
 
 
 namespace Xervice\Config\Container;
 
-
-
-use Xervice\Config\Exception\ConfigNotFound;
 
 class ConfigContainer
 {
@@ -20,7 +18,7 @@ class ConfigContainer
      *
      * @return \Xervice\Config\Container\ConfigContainer
      */
-    public function set(string $name, $val)
+    public function set(string $name, $val): ConfigContainer
     {
         $this->configs[$name] = $val;
 
@@ -30,7 +28,7 @@ class ConfigContainer
     /**
      * @param array $config
      */
-    public function fromArray(array $config)
+    public function fromArray(array $config): void
     {
         $this->configs = array_merge($this->configs, $config);
     }
@@ -38,7 +36,7 @@ class ConfigContainer
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->configs;
     }
@@ -48,14 +46,10 @@ class ConfigContainer
      * @param mixed $default
      *
      * @return mixed
-     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     public function get(string $name, $default = null)
     {
         if (!isset($this->configs[$name])) {
-            if ($default === null) {
-                throw new ConfigNotFound($name);
-            }
             $this->set($name, $default);
         }
         return $this->configs[$name];

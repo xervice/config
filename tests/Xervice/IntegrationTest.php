@@ -40,7 +40,18 @@ class IntegrationTest extends \Codeception\Test\Unit
         );
     }
 
-    public function getConfigTestData()
+    public function testDefaultConfig()
+    {
+        $this->assertEquals(
+            'defaultval',
+            $this->configData->get('NOT_EXISTING_KEY', 'defaultval')
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfigTestData(): array
     {
         return [
             [

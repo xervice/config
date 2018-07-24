@@ -30,3 +30,14 @@ $config[\Xervice\Config\XerviceConfig::ADDITIONAL_CONFIG_FILES] = [
     __DIR__ . '/addition_config.php'
 ];
 ```
+
+Usage
+--------------------
+```php
+$configProvider = new XerviceConfig(new XerviceConfigFactory());
+$config = $configProvider->getConfig();
+
+$value = $config->get('CONFIG_KEY');
+
+$valueWithDefault = $config->get('CONFIG_KEY', 'defaultvalue');
+```

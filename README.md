@@ -20,7 +20,7 @@ Configuration
     * config_default.php
     * config_<APPLICATION_ENV>.php
     * config_local.php
-    * <additional config files defined in previous config file>
+    * (additional config files defined in previous config file)
 
 To add additional config files you can add them to your config_default:
 ```php

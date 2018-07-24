@@ -31,8 +31,9 @@ $config[\Xervice\Config\XerviceConfig::ADDITIONAL_CONFIG_FILES] = [
 ];
 ```
 
-If you want to change the config-directory, you can set the environment variable ***APPLICATION_PATH***.
-If this variable is defined, the config will search for config-files in <APPLICATION_PATH>/config.
+If you want to change the config-directory, you can set the environment variable ***CONFIG_PATH***.
+If no CONFIG_PATH is defined, it will look under the environment variable <APPLICATION_PATH>/config.
+If no APPLICATION_PATH is defined, it will look in the current workdir.
 
 Usage
 --------------------

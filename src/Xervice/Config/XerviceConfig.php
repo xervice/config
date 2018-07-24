@@ -70,14 +70,14 @@ class XerviceConfig
     private function init(): void
     {
         $environment = $this->factory->createEnvironment();
-        $rootPath = getenv('APPLICATION_PATH') ?: getcwd();
-        $configDir = $rootPath . '/config/';
+        $rootPath = $this->getRootPath();
+        $configDir = $this->getConfigPath($rootPath);
 
         $this->parseFileIfExist($configDir . '/config_default.php');
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
         $this->parseFileIfExist($configDir . '/config_local.php');
 
-        $additionalFiles = (array) $this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
+        $additionalFiles = (array)$this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
         if ($additionalFiles) {
             foreach ($additionalFiles as $file) {
                 $this->parseFileIfExist($file);
@@ -86,4 +86,22 @@ class XerviceConfig
 
         $this->factory->getConfigContainer()->set(self::APPLICATION_PATH, $rootPath);
     }
+
+    /**
+     * @return string
+     */
+    private function getRootPath(): string
+    {
+        return getenv('APPLICATION_PATH') ?: getcwd();
+    }
+
+    /**
+     * @param $rootPath
+     *
+     * @return string
+     */
+    private function getConfigPath($rootPath): string
+    {
+        return getenv('CONFIG_PATH') ?: $rootPath . '/config/';
+}
 }

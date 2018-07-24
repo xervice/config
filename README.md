@@ -22,6 +22,8 @@ Configuration
     * config_local.php
     * (additional config files defined in previous config file)
 
+***APPLICATION_ENV*** is a environment variable. The default value is "production".
+
 To add additional config files you can add them to your config_default:
 ```php
 $config[\Xervice\Config\XerviceConfig::ADDITIONAL_CONFIG_FILES] = [

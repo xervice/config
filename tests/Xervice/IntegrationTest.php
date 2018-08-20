@@ -2,9 +2,8 @@
 
 namespace XerviceTest;
 
-use Codeception\Example;
-use Xervice\Config\XerviceConfig;
-use Xervice\Config\XerviceConfigFactory;
+use Xervice\Config\Business\XerviceConfig;
+use Xervice\Config\Business\ConfigBusinessFactory;
 
 class IntegrationTest extends \Codeception\Test\Unit
 {
@@ -14,7 +13,7 @@ class IntegrationTest extends \Codeception\Test\Unit
     protected $tester;
 
     /**
-     * @var \Xervice\Config\Container\ConfigContainer
+     * @var \Xervice\Config\Business\Container\ConfigContainer
      */
     private $configData;
 
@@ -83,7 +82,7 @@ class IntegrationTest extends \Codeception\Test\Unit
             ],
             [
                 'production',
-                'prod_test'
+                'prod_test-main'
             ],
             [
                 'local',
@@ -102,7 +101,7 @@ class IntegrationTest extends \Codeception\Test\Unit
 
     private function loadConfig(): void
     {
-        $config = new XerviceConfig(new XerviceConfigFactory());
+        $config = new XerviceConfig(new ConfigBusinessFactory());
         $this->configData = $config->getConfig();
     }
 }

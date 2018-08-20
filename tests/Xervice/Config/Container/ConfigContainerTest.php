@@ -1,7 +1,7 @@
 <?php
 namespace XerviceTest\Config\Container;
 
-use Xervice\Config\Container\ConfigContainer;
+use Xervice\Config\Business\Container\ConfigContainer;
 
 class ConfigContainerTest extends \Codeception\Test\Unit
 {

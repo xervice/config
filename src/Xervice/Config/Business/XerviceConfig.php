@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 
-namespace Xervice\Config;
+namespace Xervice\Config\Business;
 
 
-use Xervice\Config\Container\ConfigContainer;
+use Xervice\Config\Business\Container\ConfigContainer;
 
 class XerviceConfig
 {
@@ -14,26 +14,26 @@ class XerviceConfig
     public const ADDITIONAL_CONFIG_FILES = 'ADDITIONAL_CONFIG_FILES';
 
     /**
-     * @var \Xervice\Config\XerviceConfig
+     * @var \Xervice\Config\Business\XerviceConfig
      */
     private static $instance;
 
     /**
-     * @var \Xervice\Config\XerviceConfigFactory
+     * @var \Xervice\Config\Business\ConfigBusinessFactory
      */
     private $factory;
 
     /**
-     * @var \Xervice\Config\Parser\Parser
+     * @var \Xervice\Config\Business\Parser\Parser
      */
     private $parser;
 
     /**
      * XerviceConfig constructor.
      *
-     * @param \Xervice\Config\XerviceConfigFactory $factory
+     * @param \Xervice\Config\Business\ConfigBusinessFactory $factory
      */
-    public function __construct(XerviceConfigFactory $factory)
+    public function __construct(ConfigBusinessFactory $factory)
     {
         $this->factory = $factory;
         $this->parser = $this->factory->createParser();
@@ -41,18 +41,18 @@ class XerviceConfig
     }
 
     /**
-     * @return \Xervice\Config\XerviceConfig
+     * @return \Xervice\Config\Business\XerviceConfig
      */
     public static function getInstance(): XerviceConfig
     {
         if (self::$instance === null) {
-            self::$instance = new self(new XerviceConfigFactory());
+            self::$instance = new self(new ConfigBusinessFactory());
         }
         return self::$instance;
     }
 
     /**
-     * @return \Xervice\Config\Container\ConfigContainer
+     * @return \Xervice\Config\Business\Container\ConfigContainer
      */
     public function getConfig(): ConfigContainer
     {
@@ -75,14 +75,12 @@ class XerviceConfig
 
         $this->parseFileIfExist($configDir . '/config_default.php');
         $this->parseFileIfExist($configDir . '/config_' . $environment->getEnvironment() . '.php');
+        $this->parseFileIfExist(
+            $configDir . '/config_' . $environment->getEnvironment() . '_' . $environment->getScope() . '.php'
+        );
         $this->parseFileIfExist($configDir . '/config_local.php');
 
-        $additionalFiles = (array)$this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
-        if ($additionalFiles) {
-            foreach ($additionalFiles as $file) {
-                $this->parseFileIfExist($file);
-            }
-        }
+        $this->parseAdditionalFiles();
 
         $this->factory->getConfigContainer()->set(self::APPLICATION_PATH, $rootPath);
     }
@@ -104,4 +102,14 @@ class XerviceConfig
     {
         return getenv('CONFIG_PATH') ?: $rootPath . '/config/';
 }
+
+    private function parseAdditionalFiles(): void
+    {
+        $additionalFiles = (array)$this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
+        if ($additionalFiles) {
+            foreach ($additionalFiles as $file) {
+                $this->parseFileIfExist($file);
+            }
+        }
+    }
 }

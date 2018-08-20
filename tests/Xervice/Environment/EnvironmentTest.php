@@ -1,7 +1,7 @@
 <?php
 namespace XerviceTest\Environment;
 
-use Xervice\Config\Environment\Environment;
+use Xervice\Config\Business\Environment\Environment;
 
 class EnvironmentTest extends \Codeception\Test\Unit
 {

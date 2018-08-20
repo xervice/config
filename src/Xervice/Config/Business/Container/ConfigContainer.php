@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace Xervice\Config\Container;
+namespace Xervice\Config\Business\Container;
 
 
 class ConfigContainer
@@ -16,7 +16,7 @@ class ConfigContainer
      * @param string $name
      * @param mixed $val
      *
-     * @return \Xervice\Config\Container\ConfigContainer
+     * @return \Xervice\Config\Business\Container\ConfigContainer
      */
     public function set(string $name, $val): ConfigContainer
     {

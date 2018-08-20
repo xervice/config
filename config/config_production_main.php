@@ -1,0 +1,4 @@
+<?php
+
+
+$config['production'] .= '-main';

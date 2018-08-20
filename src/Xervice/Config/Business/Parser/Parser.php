@@ -2,22 +2,22 @@
 declare(strict_types=1);
 
 
-namespace Xervice\Config\Parser;
+namespace Xervice\Config\Business\Parser;
 
 
-use Xervice\Config\Container\ConfigContainer;
+use Xervice\Config\Business\Container\ConfigContainer;
 
 class Parser
 {
     /**
-     * @var \Xervice\Config\Container\ConfigContainer
+     * @var \Xervice\Config\Business\Container\ConfigContainer
      */
     private $configContainer;
 
     /**
      * Parser constructor.
      *
-     * @param \Xervice\Config\Container\ConfigContainer $configContainer
+     * @param \Xervice\Config\Business\Container\ConfigContainer $configContainer
      */
     public function __construct(ConfigContainer $configContainer)
     {

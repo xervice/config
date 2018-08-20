@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 
-namespace Xervice\Config;
+namespace Xervice\Config\Business;
 
 
-use Xervice\Config\Container\ConfigContainer;
-use Xervice\Config\Environment\Environment;
-use Xervice\Config\Parser\Parser;
+use Xervice\Config\Business\Container\ConfigContainer;
+use Xervice\Config\Business\Environment\Environment;
+use Xervice\Config\Business\Parser\Parser;
 
-class XerviceConfigFactory
+class ConfigBusinessFactory
 {
     /**
      * @var ConfigContainer
@@ -17,7 +17,7 @@ class XerviceConfigFactory
     private $configContainer;
 
     /**
-     * @return \Xervice\Config\Container\ConfigContainer
+     * @return \Xervice\Config\Business\Container\ConfigContainer
      */
     public function getConfigContainer(): ConfigContainer
     {
@@ -28,7 +28,7 @@ class XerviceConfigFactory
     }
 
     /**
-     * @return \Xervice\Config\Parser\Parser
+     * @return \Xervice\Config\Business\Parser\Parser
      */
     public function createParser(): Parser
     {
@@ -38,7 +38,7 @@ class XerviceConfigFactory
     }
 
     /**
-     * @return \Xervice\Config\Environment\Environment
+     * @return \Xervice\Config\Business\Environment\Environment
      */
     public function createEnvironment(): Environment
     {

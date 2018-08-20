@@ -19,10 +19,12 @@ Configuration
 2.  In there you have different config files parsed in this order:
     * config_default.php
     * config_<APPLICATION_ENV>.php
+    * config_<APPLICATION_ENV>_<APPLICATION_SCOPE>.php
     * config_local.php
     * (additional config files defined in previous config file)
 
 ***APPLICATION_ENV*** is a environment variable. The default value is "production".
+***APPLICATION_SCOPE*** is a environment variable. The default value is "main".
 
 To add additional config files you can add them to your config_default:
 ```php
@@ -44,4 +46,15 @@ $config = $configProvider->getConfig();
 $value = $config->get('CONFIG_KEY');
 
 $valueWithDefault = $config->get('CONFIG_KEY', 'defaultvalue');
+
+
+// Or with the static method way
+$configProvider = XerviceConfig::getInstance();
+$config = $configProvider->getConfig();
+
+...
+
+// Or direct static access
+XerviceConfig::set('key', 'value');
+XerviceConfig::get('key'); // value
 ```

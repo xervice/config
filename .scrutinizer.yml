@@ -15,7 +15,7 @@ build:
         memory_limit: "-1"
 
     variables:
-      APPLICATION_ENV: scrutinizer
+      APPLICATION_ENV: production
 
   tests:
     override:

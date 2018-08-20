@@ -126,8 +126,9 @@ class XerviceConfig
 
     private function parseAdditionalFiles(): void
     {
-        $additionalFiles = (array)$this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
-        if ($additionalFiles) {
+        $additionalFiles = $this->getConfig()->get(self::ADDITIONAL_CONFIG_FILES, []);
+
+        if (\is_array($additionalFiles)) {
             foreach ($additionalFiles as $file) {
                 $this->parseFileIfExist($file);
             }

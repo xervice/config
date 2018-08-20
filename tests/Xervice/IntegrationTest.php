@@ -38,6 +38,27 @@ class IntegrationTest extends \Codeception\Test\Unit
         );
     }
 
+    /**
+     * @group Xervice
+     * @group Config
+     * @group XerviceConfig
+     *
+     * @dataProvider getStaticTestData
+     */
+    public function testStaticGetAndSet($name, $value)
+    {
+        XerviceConfig::set($name, $value);
+        $this->assertEquals(
+            $value,
+            XerviceConfig::get($name)
+        );
+    }
+
+    /**
+     * @group Xervice
+     * @group Config
+     * @group XerviceConfig
+     */
     public function testDefaultConfig()
     {
         $this->assertEquals(
@@ -46,6 +67,11 @@ class IntegrationTest extends \Codeception\Test\Unit
         );
     }
 
+    /**
+     * @group Xervice
+     * @group Config
+     * @group XerviceConfig
+     */
     public function testConfigPath()
     {
         putenv('APPLICATION_PATH=');
@@ -58,6 +84,11 @@ class IntegrationTest extends \Codeception\Test\Unit
         );
     }
 
+    /**
+     * @group Xervice
+     * @group Config
+     * @group XerviceConfig
+     */
     public function testApplicationPath()
     {
         putenv('APPLICATION_PATH=' . __DIR__ . '/TestConfig');
@@ -95,6 +126,39 @@ class IntegrationTest extends \Codeception\Test\Unit
             [
                 'default_overwrite',
                 'testProduction'
+            ]
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getStaticTestData(): array
+    {
+        return [
+            [
+                'testString',
+                'MyStringValue'
+            ],
+            [
+                'testBool',
+                true
+            ],
+            [
+                'testArray',
+                ['myTest']
+            ],
+            [
+                'testInt',
+                5
+            ],
+            [
+                'testDouble',
+                5.3
+            ],
+            [
+                'testObject',
+                new \stdClass()
             ]
         ];
     }

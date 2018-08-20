@@ -52,6 +52,27 @@ class XerviceConfig
     }
 
     /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public static function get(string $key)
+    {
+        return self::getInstance()->getConfig()->get($key);
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return \Xervice\Config\Business\Container\ConfigContainer
+     */
+    public static function set(string $key, $value)
+    {
+        return self::getInstance()->getConfig()->set($key, $value);
+    }
+
+    /**
      * @return \Xervice\Config\Business\Container\ConfigContainer
      */
     public function getConfig(): ConfigContainer

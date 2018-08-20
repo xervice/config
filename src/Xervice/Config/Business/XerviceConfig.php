@@ -53,12 +53,13 @@ class XerviceConfig
 
     /**
      * @param string $key
+     * @param mixed $default
      *
      * @return mixed
      */
-    public static function get(string $key)
+    public static function get(string $key, $default = null)
     {
-        return self::getInstance()->getConfig()->get($key);
+        return self::getInstance()->getConfig()->get($key, $default);
     }
 
     /**

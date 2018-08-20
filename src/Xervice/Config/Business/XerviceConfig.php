@@ -115,11 +115,11 @@ class XerviceConfig
     }
 
     /**
-     * @param $rootPath
+     * @param string $rootPath
      *
      * @return string
      */
-    private function getConfigPath($rootPath): string
+    private function getConfigPath(string $rootPath): string
     {
         return getenv('CONFIG_PATH') ?: $rootPath . '/config/';
 }
